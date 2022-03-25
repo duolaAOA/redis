@@ -1,4 +1,4 @@
-module coredns-redis
+module github.com/duolaAOA/redis
 
 go 1.17
 
