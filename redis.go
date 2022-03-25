@@ -17,6 +17,7 @@ type Redis struct {
 	Pool           *redisCon.Pool
 	redisAddress   string
 	redisPassword  string
+	db             int
 	connectTimeout int
 	readTimeout    int
 	keyPrefix      string
@@ -416,7 +417,7 @@ func (redis *Redis) Connect() {
 			if redis.readTimeout != 0 {
 				opts = append(opts, redisCon.DialReadTimeout(time.Duration(redis.readTimeout)*time.Millisecond))
 			}
-
+			opts = append(opts, redisCon.DialDatabase(redis.db))
 			return redisCon.Dial("tcp", redis.redisAddress, opts...)
 		},
 	}

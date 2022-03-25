@@ -2,8 +2,8 @@ package redis
 
 import (
 	"context"
-	"testing"
 	"fmt"
+	"testing"
 
 	"github.com/coredns/coredns/plugin/pkg/dnstest"
 	"github.com/coredns/coredns/plugin/test"
@@ -200,17 +200,10 @@ func newRedisPlugin() *Redis {
 	redis.Ttl = 300
 	redis.redisAddress = "localhost:6379"
 	redis.redisPassword = ""
+	redis.db = 0
 	redis.Connect()
 	redis.LoadZones()
 	return redis
-	/*
-	return &Redis {
-		keyPrefix: "",
-		keySuffix:"",
-		redisc: client,
-		Ttl: 300,
-	}	redis := new(Redis)
-	*/
 }
 
 func TestAnswer(t *testing.T) {
@@ -240,7 +233,7 @@ func TestAnswer(t *testing.T) {
 			if resp == nil {
 				resp = new(dns.Msg)
 			}
-			test.SortAndCheck(t, resp, tc)
+			test.SortAndCheck(resp, tc)
 		}
 	}
 }
